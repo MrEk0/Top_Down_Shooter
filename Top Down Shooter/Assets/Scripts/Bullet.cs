@@ -6,13 +6,16 @@ using System;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] GameObject explosionPrefab = null;
-    [SerializeField] float speed = 10f;
+    [SerializeField] BulletSettings bullet;
 
     Rigidbody2D rd;
+    float speed;
 
     private void Awake()
     {
         rd = GetComponent<Rigidbody2D>();
+        GetComponent<SpriteRenderer>().sprite = bullet.sprite;
+        speed = bullet.speed;
     }
 
     private void Start()
