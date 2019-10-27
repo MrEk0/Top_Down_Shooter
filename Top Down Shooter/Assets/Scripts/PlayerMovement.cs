@@ -5,8 +5,6 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour
 {
     [SerializeField] float speed = 10f;
-    //[SerializeField] GameObject bulletPrefab = null;
-    //[SerializeField] Transform projectileStartPos = null;
 
     Rigidbody2D rb;
     Camera mainCamera;
@@ -27,25 +25,14 @@ public class PlayerMovement : MonoBehaviour
         movement.y = Input.GetAxis("Vertical");
 
         mousePos=mainCamera.ScreenToWorldPoint(Input.mousePosition);
-
-        //if(Input.GetMouseButtonDown(0))
-        //{
-        //    Fire();
-        //}
     }
 
     private void FixedUpdate()
     {
-        //rb.MovePosition(rb.position + movement * speed*Time.fixedDeltaTime);
-        rb.velocity = movement * speed;
+        rb.MovePosition(rb.position + movement * speed*Time.fixedDeltaTime);
 
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x)*Mathf.Rad2Deg-90f;
         rb.rotation = angle;
     }
-
-    //private void Fire()
-    //{
-    //    Instantiate(bulletPrefab, projectileStartPos.position, projectileStartPos.rotation);
-    //}
 }

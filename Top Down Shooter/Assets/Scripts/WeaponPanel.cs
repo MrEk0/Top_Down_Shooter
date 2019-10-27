@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class WeaponPanel : MonoBehaviour
 {
     [SerializeField] float alphaIndex = 100f;
-    [SerializeField] List<Image> weapons;
+    [SerializeField] List<Image> weapons = null;
 
     private Color pressedColor;
     private Color defaultColor;

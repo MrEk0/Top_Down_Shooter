@@ -6,22 +6,6 @@ using UnityEngine;
 public class BulletSettings : ScriptableObject
 {
     public float speed;
-    public float fireRate;
 
     public Sprite sprite;
-
-    //public float GetSpeed()
-    //{
-    //    return speed;
-    //}
-
-    //public float GetFireRate()
-    //{
-    //    return fireRate;
-    //}
-
-    //public Sprite GetSprite()
-    //{
-    //    return sprite;
-    //}
 }

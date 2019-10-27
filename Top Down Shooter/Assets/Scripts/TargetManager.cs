@@ -20,7 +20,7 @@ public class TargetManager : MonoBehaviour
     {
         targets.Add(target);
         target.GetComponent<Target>().OnDestroyed += IncreaseScore;
-        target.GetComponent<Target>().OnRemoved += RemoveTarget;//!!!!!
+        target.GetComponent<Target>().OnRemoved += RemoveTarget;
     }
 
     private void RemoveTarget(GameObject target)
@@ -30,8 +30,11 @@ public class TargetManager : MonoBehaviour
 
     private void IncreaseScore(float points)
     {
-        startScore += points;
-        scoreText.text = "Score  " + startScore.ToString();
+        if (scoreText != null)
+        {
+            startScore += points;
+            scoreText.text = "Score  " + startScore.ToString();
+        }
     }
 
     public int GetTargetNumber()
