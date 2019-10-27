@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,48 +7,52 @@ public class Fire : MonoBehaviour
 {
     [SerializeField] List<GameObject> bullets = null;
     [SerializeField] Transform firePoint = null;
+    [SerializeField] float defaultFireRate=1f;
+    [SerializeField] float additionalFireDelay = 1f;
 
     GameObject currentBullet;
     WeaponPanel weaponPanel;
 
-    //float timeSinceLastShot = 0f;
-    //float fireRate;
+    float timeSinceLastShot = 10f;
+    float fireRate;
 
-    private void Start()
+    public event Action<float> OnShooted;
+
+    private void Awake()
     {
         currentBullet = bullets[0];
         weaponPanel = FindObjectOfType<WeaponPanel>();
-        //fireRate = currentBullet.GetComponent<Bullet>().GetFireRate();
+        fireRate = defaultFireRate;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentBullet = bullets[0];
             weaponPanel.ChangeWeapon(0);
-            //fireRate = currentBullet.GetComponent<Bullet>().GetFireRate();
+            fireRate = defaultFireRate;
         }
 
-        if(Input.GetKeyDown(KeyCode.Alpha2))
+        if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentBullet = bullets[1];
             weaponPanel.ChangeWeapon(1);
-            //fireRate = currentBullet.GetComponent<Bullet>().GetFireRate();
+            fireRate = defaultFireRate + additionalFireDelay;
         }
 
-        if(Input.GetMouseButtonDown(0) /*&& timeSinceLastShot>fireRate*/)
+        if (Input.GetMouseButtonDown(0) && timeSinceLastShot>fireRate)
         {
             Shot();
-            //timeSinceLastShot = 0;
+            timeSinceLastShot = 0;
         }
-        //timeSinceLastShot += Time.deltaTime;
+        timeSinceLastShot += Time.deltaTime;
     }
 
     private void Shot()
     {
-        /*GameObject bullet=*/Instantiate(currentBullet, firePoint.position, firePoint.rotation);
-        //bullet.GetComponent<Rigidbody2D>().AddForce(firePoint.up * 10, ForceMode2D.Impulse);
+        Instantiate(currentBullet, firePoint.position, firePoint.rotation);
+        OnShooted(fireRate);
     }
 }

@@ -14,8 +14,6 @@ public class Spawner : MonoBehaviour
     float maxPosX;
     float minPosY;
     float maxPosY;
-
-    float targetCount = 0f;
     float radius;
 
     TargetManager gameManager;
@@ -36,10 +34,10 @@ public class Spawner : MonoBehaviour
 
     private void Update()
     {
-        if(timeSinceLastSpawn>spawnTime)
+        if (timeSinceLastSpawn > spawnTime) 
         {
-            Spawn();
             timeSinceLastSpawn = 0f;
+            Spawn();
         }
         timeSinceLastSpawn += Time.deltaTime;
     }
@@ -52,21 +50,14 @@ public class Spawner : MonoBehaviour
 
         if (Physics2D.CircleCast(startPos, radius, Vector2.zero))
         {
-            return;//!!!!
+            timeSinceLastSpawn = spawnTime + 1;
+            return;
         }
 
         if (gameManager.GetTargetNumber() < maxTargetNumber)
         {
             GameObject target = Instantiate(targetPrefab, startPos, Quaternion.identity, transform);
             gameManager.AddTarget(target);
-            //target.GetComponent<Target>().OnDestroyed += ReduceTargetCount;
-            targetCount++;
         }
     }
-
-    //private void ReduceTargetCount()
-    //{
-    //    targetCount--;
-    //}
-
 }
