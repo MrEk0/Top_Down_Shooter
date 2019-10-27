@@ -18,12 +18,12 @@ public class Spawner : MonoBehaviour
     float targetCount = 0f;
     float radius;
 
-    GameManager gameManager;
+    TargetManager gameManager;
 
     private void Awake()
     {
         radius = targetPrefab.GetComponent<CircleCollider2D>().radius;
-        gameManager = FindObjectOfType<GameManager>();
+        gameManager = FindObjectOfType<TargetManager>();
     }
 
     private void Start()

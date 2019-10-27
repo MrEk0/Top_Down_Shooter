@@ -15,9 +15,4 @@ public class Target : MonoBehaviour
         OnRemoved(gameObject);
         OnDestroyed(awardForDestroying);
     }
-
-    //public float GetAward()
-    //{
-    //    return awardForDestroying;
-    //}
 }
